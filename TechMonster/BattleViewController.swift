@@ -9,12 +9,127 @@
 import UIKit
 
 class BattleViewController: UIViewController {
+    
+    var enemyAttackTimer: Timer!
+    
+    var enemy: Enemy!
+    var player: Player! //LobbyviewControllerから渡される
+    
+    @IBOutlet var backgroundImageView: UIImageView!
+    
+    @IBOutlet var attackButton: UIButton!
+    
+    @IBOutlet var enemyImageView: UIImageView!
+    @IBOutlet var playerImageView: UIImageView!
+    
+    @IBOutlet var enemyHPBar: UIProgressView!
+    @IBOutlet var playerHPBar: UIProgressView!
+    
+    @IBOutlet var enemyNameLabel: UILabel!
+    @IBOutlet var playerNamelabel: UILabel!
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        //標準だとprogressbarbが細いので拡大
+        enemyHPBar.transform = CGAffineTransform(scaleX: 1.0, y: 4.0)
+        playerHPBar.transform = CGAffineTransform(scaleX: 1.0, y: 4.0)
+        
+        //プレイヤーのデータをリセット
+        playerNamelabel.text = player.name
+        playerImageView.image = player.image
+        playerHPBar.progress = player.currentHP / player.maxHP
+        
+        
         // Do any additional setup after loading the view.
     }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        startBattle()
+    }
+    
+    func startBattle(){
+        TechDraUtil.playBGM(fileName: "BGM_battle001")
+        
+        enemy = Enemy()
+        
+        //敵のデータをリセッと
+        enemyNameLabel.text = enemy.name
+        enemyImageView.image = enemy.image
+        enemyHPBar.progress = enemy.currentHP / enemy.maxHP
+        
+        //こうげきボタンを表示
+        attackButton.isHidden = true
+        
+        //敵の自動こうげき
+        enemyAttackTimer = Timer.scheduledTimer(timeInterval: enemy.attackInterval, target: self, selector: #selector(self.enemyAttack),userInfo: nil,repeats: true)
+    }
+    
+    func finishBattle(winPlayer: Bool){
+        TechDraUtil.stopBGM()
+        
+        //こうげきボタンを隠す
+        attackButton.isHidden = true
+        
+        //アラートを表示
+        let finishedMessage: String
+        if winPlayer == true {
+            TechDraUtil.playSE(fileName: "SE_fanfare")
+            finishedMessage = "プレイヤーの勝利！！"
+        }else{
+            TechDraUtil.playSE(fileName: "SE_gameover")
+            finishedMessage = "プレイヤーの敗北...."
+        }
+        let alert UIAlertController(title: "バトル終了!",message: finishedMessage,preferredStyle:UIAlertControllerStyle.alert)
+        let action = UIAlertAction(title: "OK", style: .default, handler: {actioin in
+            //OKを押すと、モーダルを消してLobbyViewControllerに戻る
+            self.dismiss(animated: true, completion: nil)
+        })
+        alert.addAction(action)
+        self.present(alert, animated: true,completion: nil)
+    }
+    
+    @IBAction func playerAttack(){
+        TechDraUtil.animateDamage(enemyImageView)
+        TechDraUtil.playSE(fileName: "SE_attack")
+        
+        //HPの更新
+        enemy.currentHP = enemy.currentHP - player.attackPower
+        enemyHPBar.setProgress(enemy.currentHP / enemy.maxHP , animated: true)
+        
+        //敵の敗北
+        if enemy.currentHP < 0 {
+            TechDraUtil.animateDamage(enemyImageView)
+            finishBattle(winPlayer: true)
+        }
+    }
+    
+    @objc func enemyAttack(){
+        TechDraUtil.animateDamage(playerImageView)
+        TechDraUtil.playSE(fileName: "SE_attack")
+        
+        //HPの更新
+        player.currentHP = player.currentHP - player.attackPower
+        playerHPBar.setProgress(player.currentHP / player.maxHP, animated: true)
+        
+        //プレイヤーの敗北
+        if player.currentHP < 0 {
+            TechDraUtil.animateVanish(playerImageView)
+            finishBattle(winPlayer: false)
+        }
+    }
+    
+    
+    
+    
+    }
+
+
+
+
     
 
     /*
@@ -27,4 +142,3 @@ class BattleViewController: UIViewController {
     }
     */
 
-}
