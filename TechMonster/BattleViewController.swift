@@ -56,16 +56,31 @@ class BattleViewController: UIViewController {
         
         enemy = Enemy()
         
-        //敵のデータをリセッと
+        //敵のデータをセット
         enemyNameLabel.text = enemy.name
         enemyImageView.image = enemy.image
         enemyHPBar.progress = enemy.currentHP / enemy.maxHP
         
-        //こうげきボタンを表示
+        //こうげきボタン
         attackButton.isHidden = true
         
         //敵の自動こうげき
         enemyAttackTimer = Timer.scheduledTimer(timeInterval: enemy.attackInterval, target: self, selector: #selector(self.enemyAttack),userInfo: nil,repeats: true)
+    }
+    
+    @IBAction func playerAttack(){
+        TechDraUtil.animateDamage(enemyImageView)
+        TechDraUtil.playSE(fileName: "SE_attack")
+        
+        //HPの更新
+        enemy.currentHP = enemy.currentHP - player.attackPower
+        enemyHPBar.setProgress(enemy.currentHP / enemy.maxHP , animated: true)
+        
+        //敵の敗北
+        if enemy.currentHP < 0 {
+            TechDraUtil.animateVanish(enemyImageView)
+            finishBattle(winPlayer: true)
+        }
     }
     
     func finishBattle(winPlayer: Bool){
@@ -83,7 +98,7 @@ class BattleViewController: UIViewController {
             TechDraUtil.playSE(fileName: "SE_gameover")
             finishedMessage = "プレイヤーの敗北...."
         }
-        let alert UIAlertController(title: "バトル終了!",message: finishedMessage,preferredStyle:UIAlertControllerStyle.alert)
+        let alert = UIAlertController(title: "バトル終了!", message: finishedMessage, preferredStyle: UIAlertController.Style.alert)
         let action = UIAlertAction(title: "OK", style: .default, handler: {actioin in
             //OKを押すと、モーダルを消してLobbyViewControllerに戻る
             self.dismiss(animated: true, completion: nil)
@@ -92,20 +107,7 @@ class BattleViewController: UIViewController {
         self.present(alert, animated: true,completion: nil)
     }
     
-    @IBAction func playerAttack(){
-        TechDraUtil.animateDamage(enemyImageView)
-        TechDraUtil.playSE(fileName: "SE_attack")
-        
-        //HPの更新
-        enemy.currentHP = enemy.currentHP - player.attackPower
-        enemyHPBar.setProgress(enemy.currentHP / enemy.maxHP , animated: true)
-        
-        //敵の敗北
-        if enemy.currentHP < 0 {
-            TechDraUtil.animateDamage(enemyImageView)
-            finishBattle(winPlayer: true)
-        }
-    }
+    
     
     @objc func enemyAttack(){
         TechDraUtil.animateDamage(playerImageView)

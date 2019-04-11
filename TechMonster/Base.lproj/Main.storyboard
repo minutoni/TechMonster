@@ -19,8 +19,8 @@
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="LobbyViewController" customModule="TechMonster" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="o6C-zu-FJC"/>
-                        <viewControllerLayoutGuide type="bottom" id="yLC-Lb-oZw"/>
+                        <viewControllerLayoutGuide type="top" id="Clq-OV-5sc"/>
+                        <viewControllerLayoutGuide type="bottom" id="9yv-hu-JSY"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
@@ -93,8 +93,8 @@
             <objects>
                 <viewController id="6L1-RF-rRE" customClass="BattleViewController" customModule="TechMonster" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="Mvc-VZ-Rni"/>
-                        <viewControllerLayoutGuide type="bottom" id="XSw-C1-lTC"/>
+                        <viewControllerLayoutGuide type="top" id="Iw4-fc-XkD"/>
+                        <viewControllerLayoutGuide type="bottom" id="wgi-To-UsR"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="eFe-Dc-S2C">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>

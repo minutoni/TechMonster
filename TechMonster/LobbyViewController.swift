@@ -42,25 +42,26 @@ class LobbyViewController: UIViewController {
         TechDraUtil.playBGM(fileName: "lobby")
     }
     
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        TechDraUtil.stopBGM()
+    }
+    
     @objc func cureStamina(){
         if stamina < maxStamina {
             stamina = min(stamina + 1, maxStamina)
             staminaBar.progress = stamina / maxStamina
         }
     }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        TechDraUtil.stopBGM()
-    }
 
         // Do any additional setup after loading the view.
     
-    @IBAction func startBattle(){
-        performSegue(withIdentifier: "startBattle", sender: nil)
-    }
+//    @IBAction func startBattle(){
+//        performSegue(withIdentifier: "startBattle", sender: nil)
+//    }
     
-    override func prepare(for segue:UIStoryboardSegue,sender: Any?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "startBattle" {
             let battleVC = segue.destination as! BattleViewController
             player.currentHP = player.maxHP
@@ -74,7 +75,7 @@ class LobbyViewController: UIViewController {
             staminaBar.progress = stamina / maxStamina
             performSegue(withIdentifier: "startBattle", sender: nil)
         }else{
-            let alert = UIAlertController(title: "OK", message: "style", preferredStyle: "スタミナが20以上必要です",preferredStyle: .alert)
+            let alert = UIAlertController(title: "スタミナ不足", message : "スタミナが20以上必要です",preferredStyle: .alert)
             let action = UIAlertAction(title: "OK", style: .default, handler: nil)
             alert.addAction(action)
             self.present(alert,animated: true,completion: nil)
