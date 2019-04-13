@@ -62,7 +62,7 @@ class BattleViewController: UIViewController {
         enemyHPBar.progress = enemy.currentHP / enemy.maxHP
         
         //こうげきボタン
-        attackButton.isHidden = true
+        attackButton.isHidden = false
         
         //敵の自動こうげき
         enemyAttackTimer = Timer.scheduledTimer(timeInterval: enemy.attackInterval, target: self, selector: #selector(self.enemyAttack),userInfo: nil,repeats: true)
@@ -77,7 +77,7 @@ class BattleViewController: UIViewController {
         enemyHPBar.setProgress(enemy.currentHP / enemy.maxHP , animated: true)
         
         //敵の敗北
-        if enemy.currentHP < 0 {
+        if enemy.currentHP <= 0 {
             TechDraUtil.animateVanish(enemyImageView)
             finishBattle(winPlayer: true)
         }

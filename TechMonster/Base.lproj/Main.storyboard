@@ -146,6 +146,7 @@
                                     <color key="titleColor" red="0.82547360749999998" green="0.56274609799999997" blue="0.24520422610000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
+                                    <action selector="playerAttack" destination="6L1-RF-rRE" eventType="touchUpInside" id="07M-LC-8Ns"/>
                                     <action selector="startBattle" destination="BYZ-38-t0r" eventType="touchUpInside" id="O7m-Ws-0JP"/>
                                 </connections>
                             </button>
@@ -153,14 +154,14 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </view>
                     <connections>
-                        <outlet property="attackButton" destination="Ys3-Lk-bY3" id="0dX-cQ-zvr"/>
-                        <outlet property="backgroundImageView" destination="Tja-0X-NpO" id="4yo-Bd-BHd"/>
-                        <outlet property="enemyHPBar" destination="yMy-PQ-XJ0" id="33c-ng-aa2"/>
-                        <outlet property="enemyImageView" destination="hRb-3G-2rT" id="e1g-EN-EcH"/>
-                        <outlet property="enemyNameLabel" destination="XMS-WE-KZW" id="xGn-YI-hWX"/>
-                        <outlet property="playerHPBar" destination="6Fp-RP-o7k" id="tkK-bq-ktH"/>
-                        <outlet property="playerImageView" destination="puf-aH-cXh" id="Ji1-5g-7c7"/>
-                        <outlet property="playerNamelabel" destination="y8H-VL-Jbq" id="3Yi-Oe-E9a"/>
+                        <outlet property="attackButton" destination="Ys3-Lk-bY3" id="Bpv-rD-h68"/>
+                        <outlet property="backgroundImageView" destination="Tja-0X-NpO" id="hKL-7s-vW3"/>
+                        <outlet property="enemyHPBar" destination="yMy-PQ-XJ0" id="iut-q6-iB9"/>
+                        <outlet property="enemyImageView" destination="hRb-3G-2rT" id="Gav-TU-Ocd"/>
+                        <outlet property="enemyNameLabel" destination="XMS-WE-KZW" id="RAP-dW-orR"/>
+                        <outlet property="playerHPBar" destination="6Fp-RP-o7k" id="HHS-HO-9fe"/>
+                        <outlet property="playerImageView" destination="puf-aH-cXh" id="PmB-0v-RsB"/>
+                        <outlet property="playerNamelabel" destination="y8H-VL-Jbq" id="GzZ-BZ-qsr"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="A0r-5F-grG" userLabel="First Responder" sceneMemberID="firstResponder"/>
